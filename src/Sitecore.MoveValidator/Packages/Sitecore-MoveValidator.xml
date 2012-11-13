@@ -1,0 +1,74 @@
+<project>
+  <Metadata>
+    <metadata>
+      <PackageName>Sitecore-MoveValidator</PackageName>
+      <Author>Velir</Author>
+      <Version>1.2</Version>
+      <Revision />
+      <License />
+      <Comment />
+      <Attributes />
+      <Readme />
+      <Publisher>Velir</Publisher>
+      <PostStep />
+      <PackageID />
+    </metadata>
+  </Metadata>
+  <SaveProject>True</SaveProject>
+  <Sources>
+    <xfiles>
+      <Entries>
+        <x-item>/bin/Sitecore.SharedSource.Commons.dll</x-item>
+        <x-item>/bin/Sitecore.SharedSource.MoveValidator.dll</x-item>
+      </Entries>
+      <Converter>
+        <FileToEntryConverter>
+          <Root>/</Root>
+          <Transforms>
+            <InstallerConfigurationTransform>
+              <Options>
+                <BehaviourOptions>
+                  <ItemMode>Undefined</ItemMode>
+                  <ItemMergeMode>Undefined</ItemMergeMode>
+                </BehaviourOptions>
+              </Options>
+            </InstallerConfigurationTransform>
+          </Transforms>
+        </FileToEntryConverter>
+      </Converter>
+      <Include />
+      <Exclude />
+      <Name>files</Name>
+    </xfiles>
+    <xitems>
+      <Entries>
+        <x-item>/master/sitecore/system/Modules/Move Validator Settings/{562B63CC-6950-4574-8330-16602D49B576}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Common/Move Validator/{6E2AC4B2-F154-4105-86D9-7466C178BC95}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Common/Move Validator/Move Validator Settings/__Standard Values/{DCAB1325-7A4F-4282-A23D-16DE851E5CC2}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Common/Move Validator/Move Validator Settings/{A36700BE-5519-44A8-9399-C1508AB9C5EC}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Common/Move Validator/Move Validator Settings/Settings/{A8EAC925-52D2-469F-A734-19F373C7F819}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Common/Move Validator/Move Validator Settings/Settings/Admin Alert Message/{C3164DE7-B93F-4E94-8142-F7FBE023AAE2}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Common/Move Validator/Move Validator Settings/Settings/Applied Locations/{AF56FA54-8595-4CAB-805F-8D5B28A5AA52}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Common/Move Validator/Move Validator Settings/Settings/User Alert Long Message/{6527A6C4-DC6F-4105-B88F-286535A41AED}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Common/Move Validator/Move Validator Settings/Settings/User Alert Short Message/{9760AA2B-431C-47CF-9BCD-A6B04919E94E}/invariant/0</x-item>
+      </Entries>
+      <SkipVersions>False</SkipVersions>
+      <Converter>
+        <ItemToEntryConverter>
+          <Transforms />
+        </ItemToEntryConverter>
+      </Converter>
+      <Include />
+      <Exclude />
+      <Name>items</Name>
+    </xitems>
+  </Sources>
+  <Converter>
+    <TrivialConverter>
+      <Transforms />
+    </TrivialConverter>
+  </Converter>
+  <Include />
+  <Exclude />
+  <Name />
+</project>

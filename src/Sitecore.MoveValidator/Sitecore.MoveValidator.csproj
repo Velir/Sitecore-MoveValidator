@@ -68,10 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages\Move Validator-1.0.zip" />
+    <None Include="Website\App_Config\Include\MoveValidator.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Website\App_Config\Include\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -20,6 +20,7 @@
       <Entries>
         <x-item>/bin/Sitecore.SharedSource.Commons.dll</x-item>
         <x-item>/bin/Sitecore.SharedSource.MoveValidator.dll</x-item>
+        <x-item>/App_Config/Include/MoveValidator.config</x-item>
       </Entries>
       <Converter>
         <FileToEntryConverter>
@@ -55,7 +56,16 @@
       <SkipVersions>False</SkipVersions>
       <Converter>
         <ItemToEntryConverter>
-          <Transforms />
+          <Transforms>
+            <InstallerConfigurationTransform>
+              <Options>
+                <BehaviourOptions>
+                  <ItemMode>Undefined</ItemMode>
+                  <ItemMergeMode>Undefined</ItemMergeMode>
+                </BehaviourOptions>
+              </Options>
+            </InstallerConfigurationTransform>
+          </Transforms>
         </ItemToEntryConverter>
       </Converter>
       <Include />

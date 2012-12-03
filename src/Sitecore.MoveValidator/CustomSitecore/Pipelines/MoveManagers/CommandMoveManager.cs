@@ -2,8 +2,8 @@
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.CustomClientPipelineArgs;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs;
 using Sitecore.SharedSource.MoveValidator.Utils;
 
 namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.MoveManagers
@@ -22,17 +22,25 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.MoveManag
 		public bool PipelineAborted;
 		public void ProcessPostBack()
 		{
-			if (_iClientPipelineArgs.IsPostBack())
+			if (_iClientPipelineArgs.IsPostBack() && _iClientPipelineArgs.Result() == "yes")
 			{
-				if (_iClientPipelineArgs.NeedToAbortPipeline())
-				{
-					PerformEvent(_iClientPipelineArgs);
-					_iClientPipelineArgs.AbortPipeline();
-					PipelineAborted = true;
-				}
+				PerformEvent(_iClientPipelineArgs);
+				_iClientPipelineArgs.AbortPipeline();
+				PipelineAborted = true;
+				PostBackProcessed = true;
+			}
+
+			if (_iClientPipelineArgs.IsPostBack() && _iClientPipelineArgs.Result() == "no")
+			{
 				PostBackProcessed = true;
 			}
 		}
+
+
+
+
+
+
 
 		public bool UserWasPrompted;
 		public void PromptIfNotValid()
@@ -40,7 +48,7 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.MoveManag
 			bool isValid = MoveUtils.IsValidCopy(_iClientPipelineArgs, _iMoveValidatorSettings);
 			if (!isValid)
 			{
-				MoveUtils.PromptUser(_iClientPipelineArgs, _iMoveValidatorSettings);
+				MoveUtils.PromptUser(_iClientPipelineArgs, _iMoveValidatorSettings, _iClientPipelineArgs.GetSource(), _iClientPipelineArgs.GetTarget());
 				UserWasPrompted = true;
 			}
 		}

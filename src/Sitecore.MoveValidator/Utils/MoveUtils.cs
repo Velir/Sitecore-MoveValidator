@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Sitecore.Data;
 using Sitecore.SharedSource.MoveValidator.CustomItems.Common.MoveValidator;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.CustomClientPipelineArgs;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs;
 using Sitecore.Web.UI.Sheer;
 
 namespace Sitecore.SharedSource.MoveValidator.Utils

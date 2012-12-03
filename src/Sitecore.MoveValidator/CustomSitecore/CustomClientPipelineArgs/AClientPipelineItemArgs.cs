@@ -3,7 +3,7 @@ using Sitecore.Data;
 using Sitecore.Diagnostics;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 
-namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs
+namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.CustomClientPipelineArgs
 {
 	public abstract class AClientPipelineItemArgs : IClientPipelineArgs
 	{
@@ -43,6 +43,10 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomCli
 		public void WaitForPostBack()
 		{
 			_args.WaitForPostBack();
+		}
+		public string Result()
+		{
+			return _args.Result;
 		}
 
 

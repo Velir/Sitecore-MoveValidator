@@ -1,5 +1,5 @@
-﻿using Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs;
+﻿using Sitecore.SharedSource.MoveValidator.CustomSitecore.CustomClientPipelineArgs;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.MoveManagers;
 using Sitecore.Shell.Framework.Pipelines;
 using Sitecore.Web.UI.Sheer;
@@ -10,7 +10,7 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
 	{
 		public void ConstrainMove(ClientPipelineArgs args)
 		{
-			IClientPipelineArgs iClientPipelineArgs = new CopyClientPipelineItemArgs(args);
+			IClientPipelineArgs iClientPipelineArgs = new MoveClientPipelineItemArgs(args);
 			IMoveValidatorSettings iMoveValidatorSettings = new MoveValidatorSettings();
 			PipelineMoveManager mm = new PipelineMoveManager(iClientPipelineArgs, iMoveValidatorSettings);
 

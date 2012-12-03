@@ -73,9 +73,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomSitecore\Domain\MoveValidatorTestSettings.cs" />
+    <Compile Include="CustomSitecore\MoveableItems\MoveableSitecoreItemTests.cs" />
     <Compile Include="CustomSitecore\MoveableItems\MoveableTestItem.cs" />
     <Compile Include="CustomSitecore\Pipelines\CommandMoveManagerTests.cs" />
-    <Compile Include="CustomSitecore\Pipelines\CustomClientPipelineArgs\ClientPipelineTestArgs.cs" />
+    <Compile Include="CustomSitecore\CustomClientPipelineArgs\ClientPipelineTestArgs.cs" />
     <Compile Include="CustomSitecore\Pipelines\PipelineMoveManagerTests.cs" />
     <Compile Include="CustomSitecore\Utils\MoveUtilsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,9 +1,9 @@
 using Sitecore.Data;
 using Sitecore.MoveValidator.Tests.CustomSitecore.MoveableItems;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.CustomClientPipelineArgs;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs;
 
-namespace Sitecore.MoveValidator.Tests.CustomSitecore.Pipelines.CustomClientPipelineArgs
+namespace Sitecore.MoveValidator.Tests.CustomSitecore.CustomClientPipelineArgs
 {
 	public class ClientPipelineTestArgs : AClientPipelineItemArgs
 	{

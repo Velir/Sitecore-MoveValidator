@@ -5,7 +5,7 @@ using Sitecore.Diagnostics;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 using Sitecore.Text;
 
-namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs
+namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.CustomClientPipelineArgs
 {
 	public class CopyClientPipelineItemArgs: AClientPipelineItemArgs
 	{

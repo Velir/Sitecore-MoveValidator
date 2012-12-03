@@ -190,7 +190,7 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.Utils
 
 			IMoveableItem sourceItem = new MoveableTestItem();
 			sourceItem.TemplateId = new ID(guidC);
-			//sourceItem.BranchId = new ID(guidC);
+			sourceItem.BranchId = new ID(guidC);
 			sourceItem.BranchTemplateIds = new List<string> { guidC };
 
 			// action

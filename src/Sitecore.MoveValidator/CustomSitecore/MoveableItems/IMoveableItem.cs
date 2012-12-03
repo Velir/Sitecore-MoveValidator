@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Sitecore.Data;
+using Sitecore.Data.Items;
 
 namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems
 {
@@ -11,6 +12,8 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems
 		ID BranchId { get; set; }
 		ID TemplateId { get; set; }
 		List<string> BranchTemplateIds { get; set; }
+
+
 		bool IsDescendantOf(IMoveableItem ancestorItem);
 		bool IsAncestorOf(IMoveableItem descendantItem);
 		List<string> InsertOptions { get; set; }
@@ -18,5 +21,7 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems
 
 		void CopyTo(IMoveableItem iTargetItem);
 		void MoveTo(IMoveableItem iTargetItem);
+
+		BranchItem Branch { get; set; }
 	}
 }

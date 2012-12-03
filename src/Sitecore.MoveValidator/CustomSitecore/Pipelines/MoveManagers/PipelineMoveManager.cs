@@ -1,5 +1,5 @@
-﻿using Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs;
+﻿using Sitecore.SharedSource.MoveValidator.CustomSitecore.CustomClientPipelineArgs;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain;
 using Sitecore.SharedSource.MoveValidator.Utils;
 
 namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.MoveManagers

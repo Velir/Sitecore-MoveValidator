@@ -3,7 +3,7 @@ using Sitecore.Data.Items;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 using Sitecore.Web.UI.Sheer;
 
-namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs
+namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.CustomClientPipelineArgs
 {
 	public class CustomPasteFromClipBoardArgs : AClientPipelineItemArgs
 	{

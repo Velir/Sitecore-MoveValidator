@@ -11,13 +11,31 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems
 	public class MoveableSitecoreItem : IMoveableItem
 	{
 		public string Guid { get; set; }
-		public ID Id { get; set; }
-		public string Name { get; set; }
-		public ID TemplateId { get; set; }
-		public ID BranchId { get; set; }
+		public ID Id {
+			get { return _item.ID; }
+			set { }
+		}
+		public string Name {
+			get { return _item.Name; }
+			set { }
+		}
+		public ID TemplateId {
+			get { return _item.TemplateID; }
+			set { }
+		}
+		public ID BranchId 
+		{
+			get { return _item.BranchId; }
+			set { }
+		}
+
+		public BranchItem Branch {
+			get { return _item.Branch; }
+			set { }
+		}
 
 
-		private Item _item;
+		private readonly Item _item;
 		private Item _targetItem;
 		private Item GetTargetItem(IMoveableItem iTargetItem)
 		{
@@ -41,31 +59,37 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems
 			_item = item;
 		}
 
-		private List<string> _branchIds;
+		private List<string> _branchTemplateIds;
 		public List<string> BranchTemplateIds
 		{
-			get { return _branchIds ?? (_branchIds = GetBranchIds()); }
-			set { _branchIds = value; }
+			get
+			{
+				if (Branch == null) return new List<string>();
+				if (_branchTemplateIds != null) return _branchTemplateIds;
+
+				_branchTemplateIds = Branch.InnerItem.GetChildren().InnerChildren.ToList().Select(x => x.TemplateID.ToString()).ToList();
+				return _branchTemplateIds;
+			}
+			set { _branchTemplateIds = value; }
 		}
 
-		private List<string>  GetBranchIds()
-		{
-			List<string> branchChildrenTemplateIds = _item.Branch.InnerItem.GetChildren().InnerChildren.ToList().Select(x => x.TemplateID.ToString()).ToList();
-			return branchChildrenTemplateIds;
-		}
+
+
 
 		public bool IsDescendantOf(IMoveableItem iItem)
 		{
 			Database database = _item.Database;
 			Item ancestorItem = database.GetItem(iItem.Id);
-			return _item.Axes.IsDescendantOf(ancestorItem);
+			bool isDescendantOf = _item.Axes.IsDescendantOf(ancestorItem);
+			return isDescendantOf;
 		}
 
 		public bool IsAncestorOf(IMoveableItem iItem)
 		{
 			Database database = _item.Database;
 			Item descendantItem = database.GetItem(iItem.Id);
-			return _item.Axes.IsAncestorOf(descendantItem);
+			bool isAncestorOf = _item.Axes.IsAncestorOf(descendantItem);
+			return isAncestorOf;
 		}
 
 		public List<string> InsertOptions
@@ -97,8 +121,6 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems
 			Log.Audit(this, "Cut from: {0} to {1}", new[] { AuditFormatter.FormatItem(targetItem), AuditFormatter.FormatItem(_item) });
 			_item.MoveTo(targetItem);
 		}
-
-		
 
 	}
 }

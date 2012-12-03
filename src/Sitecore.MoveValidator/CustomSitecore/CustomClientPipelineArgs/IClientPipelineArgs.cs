@@ -1,6 +1,6 @@
 ﻿using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 
-namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs
+namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.CustomClientPipelineArgs
 {
 	public interface IClientPipelineArgs
 	{
@@ -10,6 +10,7 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomCli
 		bool NeedToAbortPipeline();
 		void AbortPipeline();
 		void WaitForPostBack();
+		string Result();
 
 		bool IsCopy();
 

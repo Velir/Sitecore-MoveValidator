@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Sitecore.Data;
+using Sitecore.Data.Items;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 
 namespace Sitecore.MoveValidator.Tests.CustomSitecore.MoveableItems
@@ -12,7 +13,7 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.MoveableItems
 		public ID TemplateId { get; set; }
 		public ID BranchId { get; set; }
 
-		public List<string> BranchTemplateIds { get; set; } 
+		public List<string> BranchTemplateIds { get; set; }
 
 		/// <summary>
 		/// this will usually be Stubbed
@@ -47,5 +48,7 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.MoveableItems
 		{
 			
 		}
+
+		public BranchItem Branch { get; set; }
 	}
 }

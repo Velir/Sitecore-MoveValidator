@@ -1,18 +1,18 @@
 ﻿using Sitecore.Data;
 using Sitecore.Data.Items;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 using Sitecore.Web.UI.Sheer;
 
-namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
+namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs
 {
 	public class CustomPasteFromClipBoardArgs : AClientPipelineItemArgs
 	{
-		public CustomPasteFromClipBoardArgs(ClientPipelineArgs args)
+		public CustomPasteFromClipBoardArgs(Web.UI.Sheer.ClientPipelineArgs args)
 			: base(args)
 		{
 		}
 
-		public override IItem GetSource()
+		public override IMoveableItem GetSource()
 		{
 			Item item = null;
 			string str2 = StringUtil.GetString(new[] {_args.Result});
@@ -44,10 +44,10 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
 					}
 				}
 			}
-			return new SitecoreItem(item);
+			return new MoveableSitecoreItem(item);
 		}
 
-		public override IItem GetTarget()
+		public override IMoveableItem GetTarget()
 		{
 			Item item2 = GetDatabase().GetItem(_args.Parameters["id"]);
 			if (item2 == null)
@@ -57,7 +57,7 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
 					new string[0]);
 				_args.AbortPipeline();
 			}
-			return new SitecoreItem(item2);
+			return new MoveableSitecoreItem(item2);
 		}
 	}
 }

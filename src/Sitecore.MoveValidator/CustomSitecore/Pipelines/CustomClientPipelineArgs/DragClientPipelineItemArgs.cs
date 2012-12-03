@@ -1,27 +1,26 @@
 ﻿using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface;
-using Sitecore.Web.UI.Sheer;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 
-namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
+namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs
 {
 	public class DragClientPipelineItemArgs : AClientPipelineItemArgs
 	{
-		public DragClientPipelineItemArgs(ClientPipelineArgs args)
+		public DragClientPipelineItemArgs(Web.UI.Sheer.ClientPipelineArgs args)
 			: base(args)
 		{
 		}
 
-		public override IItem GetSource()
+		public override IMoveableItem GetSource()
 		{
 			Assert.ArgumentNotNull(_args, "args");
 			Assert.ArgumentNotNull(GetDatabase(), "database");
 			Item item = GetDatabase().Items[_args.Parameters["id"]];
 			Assert.IsNotNull(item, typeof(Item), "ID:{0}", new object[] { _args.Parameters["id"] });
-			return new SitecoreItem(item);
+			return new MoveableSitecoreItem(item);
 		}
 
-		public override IItem GetTarget()
+		public override IMoveableItem GetTarget()
 		{
 			Assert.ArgumentNotNull(_args, "args");
 			Item parent = GetDatabase().Items[_args.Parameters["target"]];
@@ -31,7 +30,7 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
 				parent = parent.Parent;
 				Assert.IsNotNull(parent, typeof(Item), "ID:{0}.Parent", new object[] { _args.Parameters["target"] });
 			}
-			return new SitecoreItem(parent);
+			return new MoveableSitecoreItem(parent);
 		}
 	}
 }

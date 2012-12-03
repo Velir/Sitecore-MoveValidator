@@ -74,20 +74,22 @@
     <Compile Include="CustomSitecore\Commands\CustomPasteFromClipBoard.cs" />
     <Compile Include="CustomSitecore\Domain\IMoveValidatorSettings.cs" />
     <Compile Include="CustomSitecore\Domain\MoveValidatorSettings.cs" />
-    <Compile Include="CustomSitecore\ItemInterface\IItem.cs" />
-    <Compile Include="CustomSitecore\Pipelines\AClientPipelineItemArgs.cs" />
-    <Compile Include="CustomSitecore\Pipelines\CommandMoveManager.cs" />
-    <Compile Include="CustomSitecore\Pipelines\CopyClientPipelineItemArgs.cs" />
+    <Compile Include="CustomSitecore\MoveableItems\IMoveableItem.cs" />
+    <Compile Include="CustomSitecore\MoveableItems\MoveableSitecoreItem.cs" />
+    <Compile Include="CustomSitecore\Pipelines\CustomClientPipelineArgs\AClientPipelineItemArgs.cs" />
+    <Compile Include="CustomSitecore\Pipelines\MoveManagers\CommandMoveManager.cs" />
+    <Compile Include="CustomSitecore\Pipelines\CustomClientPipelineArgs\CopyClientPipelineItemArgs.cs" />
     <Compile Include="CustomSitecore\Pipelines\CustomCopyItems.cs" />
     <Compile Include="CustomSitecore\Pipelines\CustomDragItemTo.cs" />
     <Compile Include="CustomSitecore\Pipelines\CustomMoveItems.cs" />
-    <Compile Include="CustomSitecore\Pipelines\CustomPasteFromClipBoardArgs.cs" />
-    <Compile Include="CustomSitecore\Pipelines\DragClientPipelineItemArgs.cs" />
-    <Compile Include="CustomSitecore\Pipelines\IClientPipelineArgs.cs" />
-    <Compile Include="CustomSitecore\Pipelines\IPipeline.cs" />
-    <Compile Include="CustomSitecore\Pipelines\MoveClientPipelineItemArgs.cs" />
-    <Compile Include="CustomSitecore\Pipelines\PipelineMoveManager.cs" />
+    <Compile Include="CustomSitecore\Pipelines\CustomClientPipelineArgs\CustomPasteFromClipBoardArgs.cs" />
+    <Compile Include="CustomSitecore\Pipelines\CustomClientPipelineArgs\DragClientPipelineItemArgs.cs" />
+    <Compile Include="CustomSitecore\Pipelines\CustomClientPipelineArgs\IClientPipelineArgs.cs" />
+    <Compile Include="CustomSitecore\Pipelines\CustomClientPipelineArgs\MoveClientPipelineItemArgs.cs" />
+    <Compile Include="CustomSitecore\Pipelines\MoveManagers\IMoveManager.cs" />
+    <Compile Include="CustomSitecore\Pipelines\MoveManagers\PipelineMoveManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\IMoveUtils.cs" />
     <Compile Include="Utils\MoveUtil.cs" />
   </ItemGroup>
   <ItemGroup>

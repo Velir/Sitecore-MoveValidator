@@ -3,22 +3,21 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using Sitecore.SharedSource.Commons.Extensions;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 using Sitecore.Text;
-using Sitecore.Web.UI.Sheer;
 
-namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
+namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs
 {
 	public class MoveClientPipelineItemArgs : AClientPipelineItemArgs
 	{
-		public MoveClientPipelineItemArgs(ClientPipelineArgs args)
+		public MoveClientPipelineItemArgs(Web.UI.Sheer.ClientPipelineArgs args)
 			: base(args)
 		{
 		}
 
 		#region IClientPipelineArgs Members
 
-		public override IItem GetSource()
+		public override IMoveableItem GetSource()
 		{
 			Assert.ArgumentNotNull(_args, "args");
 			var list = new List<Item>();
@@ -34,17 +33,17 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
 			}
 			if (list.Count > 0)
 			{
-				return new SitecoreItem(list[0]);
+				return new MoveableSitecoreItem(list[0]);
 			}
 			return null;
 		}
 
-		public override IItem GetTarget()
+		public override IMoveableItem GetTarget()
 		{
 			Assert.ArgumentNotNull(_args, "args");
 			Item item = GetDatabase().Items[_args.Parameters["target"]];
 			Assert.IsNotNull(item, typeof(Item), "ID: {0}", new object[] { _args.Parameters["target"] });
-			return new SitecoreItem(item);
+			return new MoveableSitecoreItem(item);
 		}
 
 

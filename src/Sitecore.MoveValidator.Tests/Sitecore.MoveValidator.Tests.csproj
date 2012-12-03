@@ -50,6 +50,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="Sitecore.Client">
       <HintPath>..\..\lib\Sitecore\v6.4.1\Sitecore.Client.dll</HintPath>
     </Reference>
@@ -69,7 +72,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomSitecore\Domain\MoveValidatorTestSettings.cs" />
+    <Compile Include="CustomSitecore\MoveableItems\MoveableTestItem.cs" />
+    <Compile Include="CustomSitecore\Pipelines\CommandMoveManagerTests.cs" />
+    <Compile Include="CustomSitecore\Pipelines\CustomClientPipelineArgs\ClientPipelineTestArgs.cs" />
     <Compile Include="CustomSitecore\Pipelines\PipelineMoveManagerTests.cs" />
+    <Compile Include="CustomSitecore\Utils\MoveUtilsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +110,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomSitecore\Pipelines\MoveManagers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,15 +1,9 @@
 ﻿using Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs;
 using Sitecore.SharedSource.MoveValidator.Utils;
-using Sitecore.Web.UI.Sheer;
 
-namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
+namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.MoveManagers
 {
-	public interface IMoveManager
-	{
-		void ProcessPostBack();
-		void PromptIfNotValid();
-	}
-
 	public class PipelineMoveManager : IMoveManager
 	{
 		private readonly IClientPipelineArgs _iClientPipelineArgs;

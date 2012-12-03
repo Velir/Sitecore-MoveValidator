@@ -1,22 +1,21 @@
 ﻿using Sitecore.Configuration;
 using Sitecore.Data;
 using Sitecore.Diagnostics;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface;
-using Sitecore.Web.UI.Sheer;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 
-namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
+namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs
 {
 	public abstract class AClientPipelineItemArgs : IClientPipelineArgs
 	{
-		protected ClientPipelineArgs _args;
+		protected Web.UI.Sheer.ClientPipelineArgs _args;
 
-		public AClientPipelineItemArgs(ClientPipelineArgs args)
+		public AClientPipelineItemArgs(Web.UI.Sheer.ClientPipelineArgs args)
 		{
 			_args = args;
 		}
 
-		public abstract IItem GetSource();
-		public abstract IItem GetTarget();
+		public abstract IMoveableItem GetSource();
+		public abstract IMoveableItem GetTarget();
 
 		protected virtual Database GetDatabase()
 		{

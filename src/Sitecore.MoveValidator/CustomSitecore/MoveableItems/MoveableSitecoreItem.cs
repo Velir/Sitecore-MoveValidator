@@ -6,27 +6,9 @@ using Sitecore.Data.Items;
 using Sitecore.Data.Masters;
 using Sitecore.Diagnostics;
 
-namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface
+namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems
 {
-	public interface IItem
-	{
-		string Guid { get; set; }
-		ID Id { get; set; }
-		string Name { get; set; }
-		ID BranchId { get; set; }
-		ID TemplateId { get; set; }
-		List<string> BranchTemplateIds { get; set; }
-		bool IsDescendantOf(IItem ancestorItem);
-		bool IsAncestorOf(IItem descendantItem);
-		List<string> InsertOptions { get; set; }
-		string DatabaseName { get; set; }
-
-		void CopyTo(IItem iTargetItem);
-		void MoveTo(IItem iTargetItem);
-	}
-
-
-	public class SitecoreItem : IItem
+	public class MoveableSitecoreItem : IMoveableItem
 	{
 		public string Guid { get; set; }
 		public ID Id { get; set; }
@@ -37,9 +19,9 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface
 
 		private Item _item;
 		private Item _targetItem;
-		private Item GetTargetItem(IItem iTargetItem)
+		private Item GetTargetItem(IMoveableItem iTargetItem)
 		{
-		if (_targetItem != null) return _targetItem;
+			if (_targetItem != null) return _targetItem;
 				
 			Database database = Factory.GetDatabase("master");
 			_targetItem = database.GetItem(iTargetItem.Id);
@@ -48,7 +30,7 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface
 
 
 
-		public SitecoreItem(Item item)
+		public MoveableSitecoreItem(Item item)
 		{
 			Guid = item.ID.ToString();
 			Id = item.ID;
@@ -72,19 +54,17 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface
 			return branchChildrenTemplateIds;
 		}
 
-		public bool IsDescendantOf(IItem iItem)
+		public bool IsDescendantOf(IMoveableItem iItem)
 		{
-			Database database = Factory.GetDatabase("master");
+			Database database = _item.Database;
 			Item ancestorItem = database.GetItem(iItem.Id);
-
 			return _item.Axes.IsDescendantOf(ancestorItem);
 		}
 
-		public bool IsAncestorOf(IItem iItem)
+		public bool IsAncestorOf(IMoveableItem iItem)
 		{
-			Database database = Factory.GetDatabase("master");
+			Database database = _item.Database;
 			Item descendantItem = database.GetItem(iItem.Id);
-
 			return _item.Axes.IsAncestorOf(descendantItem);
 		}
 
@@ -104,14 +84,14 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface
 			set { }
 		}
 
-		public void CopyTo(IItem iTargetItem)
+		public void CopyTo(IMoveableItem iTargetItem)
 		{
 			Item targetItem = GetTargetItem(iTargetItem);
 			Log.Audit(this, "Paste from: {0} to {1}", new[] { AuditFormatter.FormatItem(targetItem), AuditFormatter.FormatItem(_item) });
 			_item.CopyTo(targetItem, ItemUtil.GetCopyOfName(targetItem, Name));
 		}
 
-		public void MoveTo(IItem iTargetItem)
+		public void MoveTo(IMoveableItem iTargetItem)
 		{
 			Item targetItem = GetTargetItem(iTargetItem);
 			Log.Audit(this, "Cut from: {0} to {1}", new[] { AuditFormatter.FormatItem(targetItem), AuditFormatter.FormatItem(_item) });
@@ -120,42 +100,5 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface
 
 		
 
-	}
-
-
-	public class TestItem : IItem
-	{
-		public string Guid { get; set; }
-		public ID Id { get; set; }
-		public string Name { get; set; }
-		public ID TemplateId { get; set; }
-		public ID BranchId { get; set; }
-
-		public List<string> BranchTemplateIds { get; set; } 
-
-		// todo configure this
-		public bool IsDescendantOf(IItem ancestorItem)
-		{
-			return false;
-		}
-
-		public bool IsAncestorOf(IItem iItem)
-		{
-			return false;
-		}
-
-
-		public List<string> InsertOptions { get; set; }
-		public string DatabaseName { get; set; }
-
-
-		public void CopyTo(IItem iTargetItem)
-		{
-			
-		}
-		public void MoveTo(IItem iTargetItem)
-		{
-			
-		}
 	}
 }

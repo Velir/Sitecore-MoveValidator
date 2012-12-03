@@ -2,19 +2,18 @@
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 using Sitecore.Text;
-using Sitecore.Web.UI.Sheer;
 
-namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
+namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs
 {
 	public class CopyClientPipelineItemArgs: AClientPipelineItemArgs
 	{
-		public CopyClientPipelineItemArgs(ClientPipelineArgs args) : base(args)
+		public CopyClientPipelineItemArgs(Web.UI.Sheer.ClientPipelineArgs args) : base(args)
 		{
 		}
 
-		public override IItem GetSource()
+		public override IMoveableItem GetSource()
 		{
 			Assert.ArgumentNotNull(_args, "args");
 			List<Item> list = new List<Item>();
@@ -30,17 +29,17 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
 			}
 			if (list.Count > 0)
 			{
-				return new SitecoreItem(list[0]);
+				return new MoveableSitecoreItem(list[0]);
 			}
 			return null;
 		}
 
-		public override IItem GetTarget()
+		public override IMoveableItem GetTarget()
 		{
 			Assert.ArgumentNotNull(_args, "args");
 			Item item = GetDatabase().Items[_args.Parameters["destination"]];
 			Assert.IsNotNull(item, typeof(Item), "ID: {0}", new object[] { _args.Parameters["destination"] });
-			return new SitecoreItem(item);
+			return new MoveableSitecoreItem(item);
 		}
 	}
 }

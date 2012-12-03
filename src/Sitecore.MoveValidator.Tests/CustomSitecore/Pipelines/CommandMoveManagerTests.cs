@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using Sitecore.Data.Items;
 using Sitecore.MoveValidator.Tests.CustomSitecore.Domain;
 using Sitecore.MoveValidator.Tests.CustomSitecore.Pipelines.CustomClientPipelineArgs;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain;
@@ -11,35 +10,35 @@ using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientP
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.MoveManagers;
 using Sitecore.Web.UI.Sheer;
 
-
 namespace Sitecore.MoveValidator.Tests.CustomSitecore.Pipelines
 {
 	[TestFixture]
-	public class PipelineMoveManagerTests
+	public class CommandMoveManagerTests
 	{
 
 		[Test]
 		public void PipelineAbortedTest()
 		{
-			ClientPipelineArgs clientPipelineArgs = new ClientPipelineArgs {IsPostBack = true, Result = "no"};
-			IClientPipelineArgs iClientPipelineArgs = new CopyClientPipelineItemArgs(clientPipelineArgs);
+			ClientPipelineArgs clientPipelineArgs = new ClientPipelineArgs { IsPostBack = true, Result = "no" };
+			IClientPipelineArgs iClientPipelineArgs = new CustomPasteFromClipBoardArgs(clientPipelineArgs);
 			IMoveValidatorSettings iMoveValidatorSettings = new MoveValidatorTestSettings();
 
-			PipelineMoveManager mm = new PipelineMoveManager(iClientPipelineArgs, iMoveValidatorSettings);
+			CommandMoveManager mm = new CommandMoveManager(iClientPipelineArgs, iMoveValidatorSettings);
 			mm.ProcessPostBack();
 
 			Assert.IsTrue(mm.PostBackProcessed);
 			Assert.IsTrue(mm.PipelineAborted);
 		}
 
+
 		[Test]
 		public void PipelineNotAbortedTest()
 		{
 			ClientPipelineArgs clientPipelineArgs = new ClientPipelineArgs { IsPostBack = true, Result = "yes" };
-			IClientPipelineArgs iClientPipelineArgs = new CopyClientPipelineItemArgs(clientPipelineArgs);
+			IClientPipelineArgs iClientPipelineArgs = new CustomPasteFromClipBoardArgs(clientPipelineArgs);
 			IMoveValidatorSettings iMoveValidatorSettings = new MoveValidatorTestSettings();
 
-			PipelineMoveManager mm = new PipelineMoveManager(iClientPipelineArgs, iMoveValidatorSettings);
+			CommandMoveManager mm = new CommandMoveManager(iClientPipelineArgs, iMoveValidatorSettings);
 			mm.ProcessPostBack();
 
 			Assert.IsTrue(mm.PostBackProcessed);
@@ -51,10 +50,10 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.Pipelines
 		public void PostBackProcessedTest()
 		{
 			ClientPipelineArgs clientPipelineArgs = new ClientPipelineArgs { IsPostBack = true };
-			IClientPipelineArgs iClientPipelineArgs = new CopyClientPipelineItemArgs(clientPipelineArgs);
+			IClientPipelineArgs iClientPipelineArgs = new CustomPasteFromClipBoardArgs(clientPipelineArgs);
 			IMoveValidatorSettings iMoveValidatorSettings = new MoveValidatorTestSettings();
 
-			PipelineMoveManager mm = new PipelineMoveManager(iClientPipelineArgs, iMoveValidatorSettings);
+			CommandMoveManager mm = new CommandMoveManager(iClientPipelineArgs, iMoveValidatorSettings);
 			mm.ProcessPostBack();
 
 			Assert.IsTrue(mm.PostBackProcessed);
@@ -64,10 +63,10 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.Pipelines
 		public void PostBackNotProcessedTest()
 		{
 			ClientPipelineArgs clientPipelineArgs = new ClientPipelineArgs { IsPostBack = false };
-			IClientPipelineArgs iClientPipelineArgs = new CopyClientPipelineItemArgs(clientPipelineArgs);
+			IClientPipelineArgs iClientPipelineArgs = new CustomPasteFromClipBoardArgs(clientPipelineArgs);
 			IMoveValidatorSettings iMoveValidatorSettings = new MoveValidatorTestSettings();
 
-			PipelineMoveManager mm = new PipelineMoveManager(iClientPipelineArgs, iMoveValidatorSettings);
+			CommandMoveManager mm = new CommandMoveManager(iClientPipelineArgs, iMoveValidatorSettings);
 			mm.ProcessPostBack();
 
 			Assert.IsFalse(mm.PostBackProcessed);
@@ -82,10 +81,11 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.Pipelines
 			IClientPipelineArgs iClientPipelineArgs = new ClientPipelineTestArgs(clientPipelineArgs);
 			IMoveValidatorSettings iMoveValidatorSettings = new MoveValidatorTestSettings();
 
-			PipelineMoveManager mm = new PipelineMoveManager(iClientPipelineArgs, iMoveValidatorSettings);
+			CommandMoveManager mm = new CommandMoveManager(iClientPipelineArgs, iMoveValidatorSettings);
 			mm.PromptIfNotValid();
 
 			Assert.IsFalse(mm.UserWasPrompted);
 		}
+
 	}
 }

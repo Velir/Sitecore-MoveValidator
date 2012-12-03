@@ -5,8 +5,10 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.MoveManagers;
 using Sitecore.Shell.Framework.Commands;
 using Sitecore.Web.UI.Sheer;
 
@@ -88,8 +90,8 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Commands
 			}
 
 			
-			IItem sourceItem = iClientPipelineArgs.GetSource();
-			IItem targetItem = iClientPipelineArgs.GetTarget();
+			IMoveableItem sourceItem = iClientPipelineArgs.GetSource();
+			IMoveableItem targetItem = iClientPipelineArgs.GetTarget();
 
 			if ((sourceItem.Id != targetItem.Id) && sourceItem.IsAncestorOf(targetItem))
 			{

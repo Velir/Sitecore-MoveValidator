@@ -3,9 +3,10 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs;
 using Sitecore.SharedSource.MoveValidator.Utils;
 
-namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
+namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.MoveManagers
 {
 	public class CommandMoveManager : IMoveManager
 	{
@@ -34,7 +35,6 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
 		}
 
 		public bool UserWasPrompted;
-
 		public void PromptIfNotValid()
 		{
 			bool isValid = MoveUtil.IsValidCopy(_iClientPipelineArgs, _iMoveValidatorSettings);
@@ -79,15 +79,13 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
 			if (copyOrMoveParameter.Equals("copy"))
 			{
 				//copy
-				Log.Audit(this, "Paste from: {0} to {1}",
-				          new[] { AuditFormatter.FormatItem(destinationItem), AuditFormatter.FormatItem(selectedItem) });
+				Log.Audit(this, "Paste from: {0} to {1}", new[] { AuditFormatter.FormatItem(destinationItem), AuditFormatter.FormatItem(selectedItem) });
 				selectedItem.CopyTo(destinationItem, ItemUtil.GetCopyOfName(destinationItem, selectedItem.Name));
 			}
 			else if (selectedItem.ID != destinationItem.ID)
 			{
 				//move
-				Log.Audit(this, "Cut from: {0} to {1}",
-				          new[] { AuditFormatter.FormatItem(destinationItem), AuditFormatter.FormatItem(selectedItem) });
+				Log.Audit(this, "Cut from: {0} to {1}", new[] { AuditFormatter.FormatItem(destinationItem), AuditFormatter.FormatItem(selectedItem) });
 				selectedItem.MoveTo(destinationItem);
 			}
 		}

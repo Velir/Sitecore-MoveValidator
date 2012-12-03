@@ -6,7 +6,7 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.SharedSource.Commons.Extensions;
 using Sitecore.SharedSource.MoveValidator.CustomItems.Common.MoveValidator;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 
 namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain
 {
@@ -14,11 +14,11 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain
 	{
 		private MoveValidatorSettingsItem _moveValidatorSettingsItem;
 
-		public List<IItem> AppliedLocations
+		public List<IMoveableItem> MonitoredLocations
 		{
 			get
 			{
-				IEnumerable<IItem> appliedLocations = GetSettingsItem().AppliedLocations.GetItems().Select(x => new SitecoreItem(x) as IItem);
+				IEnumerable<IMoveableItem> appliedLocations = GetSettingsItem().AppliedLocations.GetItems().Select(x => new MoveableSitecoreItem(x) as IMoveableItem);
 				return appliedLocations.ToList();
 			}
 			set { }
@@ -55,34 +55,6 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain
 
 			_moveValidatorSettingsItem = database.GetItem("/sitecore/system/Modules/Move Validator Settings");
 			return _moveValidatorSettingsItem;
-		}
-	}
-
-
-
-	public class MoveValidatorSettingsTester : IMoveValidatorSettings
-	{
-
-
-		public List<IItem> AppliedLocations {
-			get { return new List<IItem>();}
-			set { }
-		}
-
-		
-		public string AdminAlertMessage
-		{
-			get { return MoveValidatorSettingsItem.DEFAULT_ADMIN_ALERT; }
-		}
-
-		public string UserAlertLongMessage
-		{
-			get { return MoveValidatorSettingsItem.DEFAULT_USER_LONG_ALERT; }
-		}
-
-		public string UserAlertShortMessage
-		{
-			get { return MoveValidatorSettingsItem.DEFAULT_USER_SHORT_ALERT; }
 		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sitecore.Data.Items;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
 
 namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain
 {
@@ -11,7 +11,7 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain
 	{
 		//	List<Item> selectedLocations = settingsItem.AppliedLocations.GetItems().ToList();
 
-		List<IItem> AppliedLocations { get; set; }
+		List<IMoveableItem> MonitoredLocations { get; set; }
 
 		string AdminAlertMessage { get; }
 		string UserAlertLongMessage { get; }

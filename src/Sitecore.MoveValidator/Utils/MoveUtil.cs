@@ -3,28 +3,18 @@ using System.Linq;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Data.Masters;
+using Sitecore.SharedSource.Commons.Abstractions.Items;
 using Sitecore.SharedSource.Commons.Extensions;
 using Sitecore.SharedSource.MoveValidator.CustomItems.Common.MoveValidator;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.ItemInterface;
-using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
+using Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.CustomClientPipelineArgs;
 using Sitecore.Web.UI.Sheer;
 
 namespace Sitecore.SharedSource.MoveValidator.Utils
 {
-	public class MoveUtil
+	public class MoveUtil// : IMoveUtils
 	{
-		/// <summary>
-		/// Returns the Insert Options of the passed Item.
-		/// </summary>
-		/// <param name = "item"></param>
-		/// <returns>List of strings</returns>
-		public static List<string> GetInsertOptions(Item item)
-		{
-			List<string> retVal = Masters.GetMasters(item).Select(x => x.ID.ToString()).ToList();
-			return retVal;
-		}
-
 		/// <summary>
 		/// Validates the selected item against the destination items insert options and 
 		/// location (as it related to the setting item).
@@ -35,66 +25,88 @@ namespace Sitecore.SharedSource.MoveValidator.Utils
 		public static bool IsValidCopy(IClientPipelineArgs iClientPipelineArgs, IMoveValidatorSettings iMoveValidatorSettings)
 		{
 			if (iClientPipelineArgs == null) return false;
-			IItem sourceItem = iClientPipelineArgs.GetSource();
-			IItem targetItem = iClientPipelineArgs.GetTarget();
+			IMoveableItem sourceItem = iClientPipelineArgs.GetSource();
+			IMoveableItem targetItem = iClientPipelineArgs.GetTarget();
 
-			//if no locations in the settings item have been configured to monitor 
-			//copying, allow the item to pass validation
-			List<IItem> selectedLocations = iMoveValidatorSettings.AppliedLocations;
-			if (selectedLocations.Count == 0) return true;
+			//if no locations in the settings item have been configured to monitor copying, allow the item to pass validation
+			List<IMoveableItem> monitoredLocations = iMoveValidatorSettings.MonitoredLocations;
+			if (monitoredLocations.Count == 0) return true;
 
-			//check against the settings item selected locations to see
-			//if the destination item matches or is a child of that selected item
-			bool matchedLocation = false;
-			foreach (Item locationItem in selectedLocations)
-			{
-				IItem iLocationItem = new SitecoreItem(locationItem);
-				if (targetItem.IsDescendantOf(iLocationItem))
-				{
-					matchedLocation = true;
-					break;
-				}
-			}
-
-			//if it does not meet any of the selected locations, the validator
-			//does not apply to this destination folder
-			if (!matchedLocation) return true;
+			//if it does not meet any of the selected locations, the validator does not apply to this destination folder
+			bool destinationIsMonitored = IsDestinationMonitored(monitoredLocations, targetItem);
+			if (!destinationIsMonitored) return true;
 
 			//check whether the insert options are valid and return answer, final check
-			List<string> insertOptions = targetItem.InsertOptions;
-			bool returnVal = insertOptions.Contains(sourceItem.TemplateId.ToString());
+			bool isAllowedInInsertOptions = IsItemAllowedInInsertOptions(sourceItem, targetItem);
+
 			// If the item comes from a branch, and the item being moved is at the top of the branch, and the branch is allowed by the insert options, allow the move.
-			if (!returnVal && sourceItem.BranchId != (ID)null)
+			if (!isAllowedInInsertOptions)
 			{
-				List<string> branchChildrenTemplateIds = sourceItem.BranchTemplateIds;// sourceItem.Branch.InnerItem.GetChildren().InnerChildren.ToList().Select(x => x.TemplateID.ToString()).ToList();
-				returnVal = (insertOptions.Contains(sourceItem.BranchId.ToString()) && branchChildrenTemplateIds.Contains(sourceItem.TemplateId.ToString()));
+				isAllowedInInsertOptions = IsBranchAllowedInInsertOptions(sourceItem, targetItem);
 			}
-			return returnVal;
+
+			return isAllowedInInsertOptions;
+		}
+
+		/// <summary>
+		/// Determines whether [is allowed in insert options] [the specified source item].
+		/// </summary>
+		/// <param name="sourceItem">The source item.</param>
+		/// <param name="targetItem">The target item.</param>
+		/// <returns>
+		///   <c>true</c> if [is allowed in insert options] [the specified source item]; otherwise, <c>false</c>.
+		/// </returns>
+		public static bool IsItemAllowedInInsertOptions(IMoveableItem sourceItem, IMoveableItem targetItem)
+		{
+			List<string> insertOptions = targetItem.InsertOptions;
+			bool isAllowedInInsertOptions = insertOptions.Contains(sourceItem.TemplateId.ToString());
+			return isAllowedInInsertOptions;
 		}
 
 
+		/// <summary>
+		/// Determines whether [is branch allowed in insert options] [the specified source item].
+		/// </summary>
+		/// <param name="sourceItem">The source item.</param>
+		/// <param name="targetItem">The target item.</param>
+		/// <returns>
+		///   <c>true</c> if [is branch allowed in insert options] [the specified source item]; otherwise, <c>false</c>.
+		/// </returns>
+		public static bool IsBranchAllowedInInsertOptions(IMoveableItem sourceItem, IMoveableItem targetItem)
+		{
+			// only run if the source item has a branch id
+			if (sourceItem.BranchId == (ID) null) return false;
+
+			List<string> insertOptions = targetItem.InsertOptions;
+			List<string> branchChildrenTemplateIds = sourceItem.BranchTemplateIds;
+			bool isBranchInInsertOptions = (insertOptions.Contains(sourceItem.BranchId.ToString()) && branchChildrenTemplateIds.Contains(sourceItem.TemplateId.ToString()));
+			return isBranchInInsertOptions;
+		}
 
 
-		///// <summary>
-		///// 	Returns the Custom Item for the Move Validator Settings Item
-		///// </summary>
-		///// <returns>MoveValidatorSettingsItem</returns>
-		//public static MoveValidatorSettingsItem GetSettingsItem()
-		//{
-		//  Database database = Client.ContentDatabase;
-		//  if (database == null)
-		//  {
-		//    return null;
-		//  }
+		/// <summary>
+		/// 	check against the settings item selected locations to see
+		//		if the destination item matches or is a child of that selected item
+		/// </summary>
+		/// <param name="selectedLocations">The selected locations.</param>
+		/// <param name="targetItem">The target item.</param>
+		/// <returns>
+		///   <c>true</c> if [is destination monitored] [the specified selected locations]; otherwise, <c>false</c>.
+		/// </returns>
+		public static bool IsDestinationMonitored(IEnumerable<IMoveableItem> selectedLocations, IMoveableItem targetItem)
+		{
+			bool destinationIsMonitored = false;
+			foreach (IMoveableItem iLocationItem in selectedLocations)
+			{
+				if (targetItem.IsDescendantOf(iLocationItem))
+				{
+					destinationIsMonitored = true;
+					break;
+				}
+			}
+			return destinationIsMonitored;
+		}
 
-		//  Item item = database.GetItem("/sitecore/system/Modules/Move Validator Settings");
-		//  if (item.IsNull())
-		//  {
-		//    return null;
-		//  }
-
-		//  return item;
-		//}
 
 		/// <summary>
 		/// Prompts the user after the validation has failed
@@ -136,7 +148,7 @@ namespace Sitecore.SharedSource.MoveValidator.Utils
 		/// <param name = "selectedItem">Selected Item that is being copied or moved</param>
 		/// <param name = "destinationItem">Destination Item</param>
 		/// <returns></returns>
-		public static void PromptUser(IClientPipelineArgs args, IMoveValidatorSettings iMoveValidatorSettings, IItem selectedItem, IItem destinationItem)
+		public static void PromptUser(IClientPipelineArgs args, IMoveValidatorSettings iMoveValidatorSettings, IMoveableItem selectedItem, IMoveableItem destinationItem)
 		{
 			//if administrator allow for an override
 			if (Context.User.IsAdministrator)
@@ -169,4 +181,5 @@ namespace Sitecore.SharedSource.MoveValidator.Utils
 			}
 		}
 	}
+
 }

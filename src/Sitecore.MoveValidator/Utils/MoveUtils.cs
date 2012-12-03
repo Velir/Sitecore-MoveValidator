@@ -1,10 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Sitecore.Data;
-using Sitecore.Data.Items;
-using Sitecore.Data.Masters;
-using Sitecore.SharedSource.Commons.Abstractions.Items;
-using Sitecore.SharedSource.Commons.Extensions;
 using Sitecore.SharedSource.MoveValidator.CustomItems.Common.MoveValidator;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.Domain;
 using Sitecore.SharedSource.MoveValidator.CustomSitecore.MoveableItems;
@@ -13,7 +8,7 @@ using Sitecore.Web.UI.Sheer;
 
 namespace Sitecore.SharedSource.MoveValidator.Utils
 {
-	public class MoveUtil// : IMoveUtils
+	public class MoveUtils// : IMoveUtils
 	{
 		/// <summary>
 		/// Validates the selected item against the destination items insert options and 

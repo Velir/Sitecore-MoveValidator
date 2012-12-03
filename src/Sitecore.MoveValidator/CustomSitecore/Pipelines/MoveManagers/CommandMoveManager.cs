@@ -37,10 +37,10 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines.MoveManag
 		public bool UserWasPrompted;
 		public void PromptIfNotValid()
 		{
-			bool isValid = MoveUtil.IsValidCopy(_iClientPipelineArgs, _iMoveValidatorSettings);
+			bool isValid = MoveUtils.IsValidCopy(_iClientPipelineArgs, _iMoveValidatorSettings);
 			if (!isValid)
 			{
-				MoveUtil.PromptUser(_iClientPipelineArgs, _iMoveValidatorSettings);
+				MoveUtils.PromptUser(_iClientPipelineArgs, _iMoveValidatorSettings);
 				UserWasPrompted = true;
 			}
 		}

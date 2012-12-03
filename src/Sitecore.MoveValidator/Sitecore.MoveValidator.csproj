@@ -89,8 +89,7 @@
     <Compile Include="CustomSitecore\Pipelines\MoveManagers\IMoveManager.cs" />
     <Compile Include="CustomSitecore\Pipelines\MoveManagers\PipelineMoveManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\IMoveUtils.cs" />
-    <Compile Include="Utils\MoveUtil.cs" />
+    <Compile Include="Utils\MoveUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="readme.txt" />

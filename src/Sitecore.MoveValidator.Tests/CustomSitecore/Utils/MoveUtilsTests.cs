@@ -34,7 +34,7 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.Utils
 			monitoredLocations.Add(monitoredItemC);
 
 			// action
-			bool destinationIsMonitored = MoveUtil.IsDestinationMonitored(monitoredLocations, destinationItem);
+			bool destinationIsMonitored = MoveUtils.IsDestinationMonitored(monitoredLocations, destinationItem);
 
 			// assert
 			Assert.IsTrue(destinationIsMonitored);
@@ -64,7 +64,7 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.Utils
 			monitoredLocations.Add(monitoredItemC);
 
 			// action
-			bool destinationIsMonitored = MoveUtil.IsDestinationMonitored(monitoredLocations, destinationItem);
+			bool destinationIsMonitored = MoveUtils.IsDestinationMonitored(monitoredLocations, destinationItem);
 
 			// assert
 			Assert.IsFalse(destinationIsMonitored);
@@ -81,7 +81,7 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.Utils
 			IList<IMoveableItem> monitoredLocations = new List<IMoveableItem>();
 
 			// action
-			bool destinationIsMonitored = MoveUtil.IsDestinationMonitored(monitoredLocations, destinationItem);
+			bool destinationIsMonitored = MoveUtils.IsDestinationMonitored(monitoredLocations, destinationItem);
 
 			// assert
 			Assert.IsFalse(destinationIsMonitored);
@@ -102,7 +102,7 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.Utils
 			sourceItem.TemplateId = new ID(guidC);
 
 			// action
-			bool itemIsAllowedInInsertOptions = MoveUtil.IsItemAllowedInInsertOptions(sourceItem, targetItem);
+			bool itemIsAllowedInInsertOptions = MoveUtils.IsItemAllowedInInsertOptions(sourceItem, targetItem);
 
 			// assert
 			Assert.IsTrue(itemIsAllowedInInsertOptions);
@@ -123,7 +123,7 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.Utils
 			sourceItem.TemplateId = new ID(guidC);
 
 			// action
-			bool itemIsAllowedInInsertOptions = MoveUtil.IsItemAllowedInInsertOptions(sourceItem, targetItem);
+			bool itemIsAllowedInInsertOptions = MoveUtils.IsItemAllowedInInsertOptions(sourceItem, targetItem);
 
 			// assert
 			Assert.IsFalse(itemIsAllowedInInsertOptions);
@@ -147,7 +147,7 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.Utils
 			sourceItem.BranchTemplateIds = new List<string> { guidC };
 
 			// action
-			bool branchIsAllowedInInsertOptions = MoveUtil.IsBranchAllowedInInsertOptions(sourceItem, targetItem);
+			bool branchIsAllowedInInsertOptions = MoveUtils.IsBranchAllowedInInsertOptions(sourceItem, targetItem);
 
 			// assert
 			Assert.IsTrue(branchIsAllowedInInsertOptions);
@@ -170,7 +170,7 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.Utils
 			sourceItem.BranchTemplateIds = new List<string> { guidC };
 
 			// action
-			bool branchIsAllowedInInsertOptions = MoveUtil.IsBranchAllowedInInsertOptions(sourceItem, targetItem);
+			bool branchIsAllowedInInsertOptions = MoveUtils.IsBranchAllowedInInsertOptions(sourceItem, targetItem);
 
 			// assert
 			Assert.IsFalse(branchIsAllowedInInsertOptions);
@@ -194,7 +194,7 @@ namespace Sitecore.MoveValidator.Tests.CustomSitecore.Utils
 			sourceItem.BranchTemplateIds = new List<string> { guidC };
 
 			// action
-			bool branchIsAllowedInInsertOptions = MoveUtil.IsBranchAllowedInInsertOptions(sourceItem, targetItem);
+			bool branchIsAllowedInInsertOptions = MoveUtils.IsBranchAllowedInInsertOptions(sourceItem, targetItem);
 
 			// assert
 			Assert.IsFalse(branchIsAllowedInInsertOptions);

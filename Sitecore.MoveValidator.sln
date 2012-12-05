@@ -3,13 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sitecore.MoveValidator", "src\Sitecore.MoveValidator\Sitecore.MoveValidator.csproj", "{15253D57-82AB-40C6-8491-2984001963DD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{633E788D-EBB7-4795-92C7-8503FB5C33F0}"
-	ProjectSection(SolutionItems) = preProject
-		Local.testsettings = Local.testsettings
-		Sitecore.MoveValidator.vsmdi = Sitecore.MoveValidator.vsmdi
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
-	EndProjectSection
-EndProject
+
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sitecore.MoveValidator.Tests", "src\Sitecore.MoveValidator.Tests\Sitecore.MoveValidator.Tests.csproj", "{C002FAA9-F01C-4358-B5FD-D337D3442206}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{36F6A4F3-9ECA-4BA7-9000-299C909DAA59}"

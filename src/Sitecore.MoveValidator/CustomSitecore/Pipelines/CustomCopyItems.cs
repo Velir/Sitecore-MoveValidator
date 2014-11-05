@@ -13,7 +13,7 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
 	public class CustomCopyItems : CopyItems
 	{
 		/// <summary>
-		/// 	This method is fired in the pipeline as a validation check before the process executes.
+		/// This method is fired in the pipeline as a validation check before the process executes.
 		/// </summary>
 		/// <param name = "args"></param>
 		/// <returns></returns>
@@ -23,8 +23,10 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
 			//this occurs when an Administrator fires the event and is prompted with a confirmation message
 			if (args.IsPostBack)
 			{
-				if (args.Result != "yes")
+				if (!string.IsNullOrEmpty(args.Result) && args.Result != "yes")
+				{
 					args.AbortPipeline();
+				}
 
 				return;
 			}
@@ -47,8 +49,8 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
 		}
 
 		/// <summary>
-		/// 	Copied Sitecore.Shell.Framework.Pipelines.CopyItems
-		/// 	Method is listed as private in Sitecore
+		/// Copied Sitecore.Shell.Framework.Pipelines.CopyItems
+		/// is listed as private in Sitecore
 		/// </summary>
 		/// <param name = "args"></param>
 		/// <returns>List of Items</returns>

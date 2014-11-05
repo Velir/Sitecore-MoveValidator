@@ -24,8 +24,10 @@ namespace Sitecore.SharedSource.MoveValidator.CustomSitecore.Pipelines
 			//this occurs when an Administrator fires the event and is prompted with a confirmation message
 			if (args.IsPostBack)
 			{
-				if (args.Result != "yes")
+				if (!string.IsNullOrEmpty(args.Result) && args.Result != "yes")
+				{
 					args.AbortPipeline();
+				}
 
 				return;
 			}
